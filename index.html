@@ -2,371 +2,112 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>J.J.joias</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>J.J. Joias | Elo da Tradição e Arte</title>
   <style>
-    /* Paleta */
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Roboto:wght@400;500&display=swap');
     :root {
       --preto: #111;
-      --cinza-escuro: #222;
-      --cinza-claro: #777;
-      --cinza-borda: #bbb;
-      --branco: #fefefe;
-      --amarelo: #f9d342;
-      --amarelo-claro: #fff8cc;
-      --verde-whatsapp: #25D366;
-      --verde-whatsapp-hover: #1ebe5d;
-      --rosa-instagram: #d6249f;
-      --rosa-instagram-hover: #ad197e;
+      --cinza: #444;
+      --dourado: #c9a14d;
+      --dourado-claro: #f1e5c9;
+      --branco: #fff;
+      --verde-wpp: #25D366;
+      --rosa-insta: #d6249f;
     }
-
-    /* Reset e base */
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: var(--branco);
-      color: var(--preto);
-      line-height: 1.6;
-      font-size: 18px;
-    }
-
-    /* Cabeçalho */
-    header {
-      background: var(--preto);
-      color: var(--branco);
-      text-align: center;
-      padding: 60px 20px 50px;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
-    }
-
-    header img {
-      height: 110px;
-      margin: 0 auto 20px;
-      display: block;
-      filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.5));
-    }
-
-    header h1 {
-      font-size: 3.4rem;
-      margin: 0;
-      letter-spacing: 0.05em;
-    }
-
-    header p {
-      font-size: 1.4rem;
-      margin-top: 15px;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: 1.5;
-      font-weight: 500;
-    }
-
-    nav {
-      background: var(--cinza-escuro);
-      text-align: center;
-      padding: 14px 0;
-      box-shadow: inset 0 -3px 5px -3px rgba(0, 0, 0, 0.7);
-      font-weight: 600;
-    }
-
-    nav a {
-      color: var(--branco);
-      margin: 0 25px;
-      text-decoration: none;
-      font-size: 1.15rem;
-      letter-spacing: 0.04em;
-      padding: 8px 12px;
-      transition: background 0.3s ease, color 0.3s ease;
-      border-radius: 6px;
-      display: inline-block;
-    }
-
-    nav a:hover,
-    nav a:focus {
-      background: var(--amarelo);
-      color: var(--preto);
-      outline: none;
-    }
-
-    section {
-      padding: 50px 20px 70px;
-      max-width: 960px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    section h2 {
-      font-size: 2.8rem;
-      margin-bottom: 25px;
-      color: var(--preto);
-      letter-spacing: 0.05em;
-      font-weight: 700;
-    }
-
-    section p {
-      font-size: 1.15rem;
-      color: var(--cinza-escuro);
-      max-width: 700px;
-      margin: 0 auto 25px;
-      line-height: 1.55;
-      font-weight: 400;
-    }
-
-    /* Botões */
-    .botao {
-      display: inline-block;
-      margin-top: 25px;
-      padding: 15px 30px;
-      background: var(--verde-whatsapp);
-      color: var(--branco);
-      font-weight: 700;
-      font-size: 1.15rem;
-      border-radius: 8px;
-      text-decoration: none;
-      box-shadow: 0 4px 8px rgba(37, 211, 102, 0.4);
-      transition: background 0.3s ease, box-shadow 0.3s ease;
-    }
-    .botao:hover,
-    .botao:focus {
-      background: var(--verde-whatsapp-hover);
-      box-shadow: 0 6px 14px rgba(30, 190, 93, 0.6);
-      outline: none;
-    }
-
-    .botao-instagram {
-      background: var(--rosa-instagram);
-      box-shadow: 0 4px 8px rgba(214, 36, 159, 0.4);
-    }
-    .botao-instagram:hover,
-    .botao-instagram:focus {
-      background: var(--rosa-instagram-hover);
-      box-shadow: 0 6px 14px rgba(173, 25, 126, 0.6);
-      outline: none;
-    }
-
-    /* Produtos */
-    .produtos-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 30px;
-      margin-top: 15px;
-    }
-    .produto {
-      background: var(--branco);
-      width: 250px;
-      padding: 20px;
-      border: 1.5px solid var(--cinza-borda);
-      border-radius: 15px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      text-align: center;
-      cursor: pointer;
-    }
-    .produto:hover,
-    .produto:focus-within {
-      transform: scale(1.07);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-      outline: none;
-    }
-    .produto img {
-      width: 100%;
-      border-radius: 12px;
-      margin-bottom: 15px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    .produto h3 {
-      font-size: 1.3rem;
-      color: var(--preto);
-      margin-bottom: 8px;
-      font-weight: 600;
-    }
-    .produto p {
-      font-size: 1.1rem;
-      color: var(--cinza-claro);
-      font-weight: 500;
-    }
-
-    /* Caixa Envio de Produtos */
-    #envio-produtos {
-      background: var(--amarelo-claro);
-      border: 2px solid var(--cinza-borda);
-      padding: 25px 35px;
-      border-radius: 18px;
-      max-width: 700px;
-      margin: 40px auto 60px;
-      text-align: left;
-      box-shadow: 0 6px 18px rgba(249, 211, 66, 0.3);
-    }
-    #envio-produtos h3 {
-      font-size: 2rem;
-      color: var(--preto);
-      margin-bottom: 20px;
-      letter-spacing: 0.05em;
-      font-weight: 700;
-      border-bottom: 3px solid var(--amarelo);
-      padding-bottom: 8px;
-      max-width: fit-content;
-    }
-    #envio-produtos p {
-      font-size: 1.15rem;
-      color: var(--preto);
-      line-height: 1.55;
-      margin-bottom: 12px;
-      font-weight: 500;
-    }
-
-    /* Contato */
-    #contato p {
-      font-size: 1.2rem;
-      font-weight: 500;
-      margin-bottom: 15px;
-      color: var(--preto);
-    }
-
-    /* Rodapé */
-    footer {
-      background: var(--preto);
-      color: var(--branco);
-      text-align: center;
-      padding: 25px 15px;
-      font-size: 1rem;
-      font-weight: 400;
-      letter-spacing: 0.03em;
-      box-shadow: inset 0 5px 10px -5px rgba(255, 255, 255, 0.1);
-      user-select: none;
-    }
-
-    /* Responsividade básica */
-    @media (max-width: 720px) {
-      .produtos-container {
-        flex-direction: column;
-        align-items: center;
-      }
-      nav a {
-        margin: 0 12px;
-        font-size: 1rem;
-      }
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family:'Roboto', sans-serif; background:#fff; color:#111; }
+    header { background:var(--preto); color:var(--branco); text-align:center; padding:80px 20px; }
+    header img { height:120px; animation: fadeInDown 1s both; }
+    header h1 { font-family:'Playfair Display', serif; font-size:3.2rem; margin-top:20px; animation: fadeInUp 1s 0.3s both; }
+    header p { font-size:1.2rem; max-width:700px; margin:20px auto; line-height:1.6; animation: fadeInUp 1s 0.5s both; }
+    nav { position:sticky; top:0; background:var(--dourado); display:flex; justify-content:center; padding:15px; z-index:1000; }
+    nav a { color:var(--preto); margin:0 20px; text-decoration:none; font-weight:500; transition:opacity .3s; }
+    nav a:hover { opacity:0.7; }
+    section { padding:60px 20px; text-align:center; }
+    section h2 { font-family:'Playfair Display', serif; font-size:2.4rem; margin-bottom:20px; color:var(--cinza); }
+    section p { font-size:1.1rem; max-width:700px; margin:0 auto 30px; line-height:1.6; }
+    .botao { display:inline-block; padding:15px 30px; border-radius:6px; font-weight:600; text-decoration:none; color:#fff; transition:transform .3s; }
+    .botao-whatsapp { background:var(--verde-wpp); }
+    .botao-whatsapp:hover { transform:scale(1.05); }
+    .botao-insta { background:var(--rosa-insta); margin-left:15px; }
+    .produtos-container { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:30px; margin-top:40px; }
+    .produto { background:#fff; border:1px solid var(--cinza); border-radius:12px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.05); transition:transform .3s; }
+    .produto:hover { transform:scale(1.03); }
+    .produto img { width:100%; display:block; }
+    .produto-info { padding:20px; text-align:left; }
+    .produto-info h3 { font-size:1.3rem; margin-bottom:10px; font-family:'Playfair Display', serif; }
+    .produto-info p { color:var(--cinza); font-weight:500; }
+    #servicos { background:var(--dourado-claro); padding:60px 20px; }
+    #servicos ul { list-style:none; max-width:700px; margin:0 auto; text-align:left; }
+    #servicos li { font-size:1.1rem; margin-bottom:15px; line-height:1.6; }
+    footer { background:var(--preto); color:var(--branco); text-align:center; padding:20px; font-size:0.9rem; }
+    /* animações */
+    @keyframes fadeInDown { from { opacity:0; transform: translateY(-20px);} to { opacity:1; transform:none; } }
+    @keyframes fadeInUp { from { opacity:0; transform: translateY(20px);} to { opacity:1; transform:none; } }
   </style>
 </head>
 <body>
-  <header>
-    <img src="logo-jj.png" alt="Logo J.J.joias" />
-    <h1>J.J.joias</h1>
-    <p>
-      Descubra a Elegância da J.J.Joias. Dê vida aos seus sonhos com joias
-      personalizadas, reparos impecáveis e uma seleção deslumbrante para todos
-      os gostos.
-    </p>
-    <a class="botao" href="#inicio">Saiba Mais</a>
-  </header>
 
-  <nav>
-    <a href="#inicio">Início</a>
-    <a href="#produtos">Produtos</a>
-    <a href="#envio-produtos">Envio de Produtos</a>
-    <a href="#contato">Contato</a>
-  </nav>
+<header>
+  <img src="logo-jj.png" alt="Logo J.J. Joias">
+  <h1>J.J. Joias</h1>
+  <p>Conectando tradição, arte e personalização em joias de ouro, prata e moeda antiga.</p>
+</header>
 
-  <section id="inicio">
-    <h2>Sobre a J.J.Joias</h2>
-    <p>
-      Fabricamos e vendemos joias em Ouro, Prata e Moeda Antiga.<br />
-      Anéis, Anéis de formatura, Alianças, Conjuntos de brincos, colares e
-      pingentes.<br />
-      Desde lindos modelos personalizados até os modelos mais clássicos de
-      joias!
-    </p>
-    <a
-      class="botao botao-instagram"
-      href="https://www.instagram.com/"
-      target="_blank"
-      >SIGA NOSSO INSTAGRAM!</a
-    >
-  </section>
+<nav>
+  <a href="#inicio">Início</a>
+  <a href="#produtos">Produtos</a>
+  <a href="#servicos">Serviços</a>
+  <a href="#contato">Contato</a>
+</nav>
 
-  <section id="produtos">
-    <h2>Nossas Joias</h2>
-    <div class="produtos-container">
-      <div class="produto" tabindex="0">
-        <img
-          src="https://via.placeholder.com/250?text=Brincos+Prata+925"
-          alt="Brincos Prata"
-        />
-        <h3>Brincos Prata 925</h3>
-        <p>R$ 67,90</p>
-      </div>
-      <div class="produto" tabindex="0">
-        <img
-          src="https://via.placeholder.com/250?text=Brinco+Argola+Prata"
-          alt="Brinco Argola Prata"
-        />
-        <h3>Brinco Argola Prata 925</h3>
-        <p>R$ 29,99</p>
-      </div>
-      <div class="produto" tabindex="0">
-        <img
-          src="https://via.placeholder.com/250?text=Colar+Ouro"
-          alt="Colar Ouro"
-        />
-        <h3>Colar Banhado a Ouro</h3>
-        <p>R$ 114,00</p>
-      </div>
-      <div class="produto" tabindex="0">
-        <img
-          src="https://via.placeholder.com/250?text=Anel+Moeda+Antiga"
-          alt="Anel Moeda"
-        />
-        <h3>Anel Moeda Antiga</h3>
-        <p>R$ 199,00</p>
+<section id="inicio">
+  <h2>Bem-vindo à Elegância</h2>
+  <p>Nossa marca une técnicas tradicionais de ourivesaria com design contemporâneo, entregando peças únicas capazes de contar histórias.</p>
+  <a class="botao botao-whatsapp" href="https://wa.me/5586999883355" target="_blank">WhatsApp</a>
+  <a class="botao botao-insta" href="https://www.instagram.com/j.j.joias_2024?igsh=NGR4amI5ZHNnNmg3" target="_blank">Instagram</a>
+</section>
+
+<section id="produtos">
+  <h2>Nossas Joias</h2>
+  <div class="produtos-container">
+    <div class="produto">
+      <img src="https://via.placeholder.com/250?text=Brincos+Prata+925" alt="Brincos Prata">
+      <div class="produto-info">
+        <h3>Brincos Prata 925</h3>
+        <p>R$ 67,90</p>
       </div>
     </div>
-  </section>
+    <div class="produto">
+      <img src="https://via.placeholder.com/250?text=Colar+Ouro" alt="Colar Banhado a Ouro">
+      <div class="produto-info">
+        <h3>Colar Banhado a Ouro</h3>
+        <p>R$ 114,00</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <!-- Caixa de Envio de Produtos -->
-  <section id="envio-produtos">
-    <h3>Envio de Produtos</h3>
-    <p>
-      Realizamos frete para todo o Brasil com rapidez e segurança, para que sua
-      joia chegue até você com todo cuidado.
-    </p>
-    <p>
-      <strong>Prazo de Entrega:</strong> Consulte o prazo específico para seu
-      CEP no momento da compra. Em geral, as entregas são feitas entre 2 a 5
-      dias úteis após confirmação do pagamento.
-    </p>
-    <p>
-      Para pedidos personalizados, o prazo pode variar. Entre em contato para
-      mais detalhes.
-    </p>
-    <p>
-      Dúvidas sobre frete, prazos ou entrega? Nossa equipe está pronta para
-      ajudar.
-    </p>
-    <p>
-      <strong>J.J. Joias: sua joia, onde quer que você esteja.<br />
-        Piripiri - PI, Brasil</strong
-      >
-    </p>
-  </section>
+<section id="servicos">
+  <h2>Nossos Serviços</h2>
+  <p>Oferecemos atendimento especializado com técnicas confiáveis e acabamento refinado.</p>
+  <ul>
+    <li><strong>Soldas em ouro, prata e moeda antiga</strong> – reparamos anéis e colares com precisão artesanal.</li>
+    <li><strong>Limpeza e polimento profissional</strong> – restauramos o brilho original mantendo a integridade da peça.</li>
+    <li><strong>Joias personalizadas</strong> – criação de modelos exclusivos sob medida.</li>
+    <li><strong>Gravações e ajustes</strong> – adaptação do tamanho e personalização com gravação de nomes ou datas.</li>
+    <li><strong>Análise gratuita</strong> – avaliamos a necessidade de reparo ou criação personalizada sem compromisso.</li>
+  </ul>
+</section>
 
-  <section id="contato">
-    <h2>Contato</h2>
-    <p>Para pedidos ou dúvidas, fale conosco direto no WhatsApp:</p>
-    <a
-      class="botao"
-      href="https://wa.me/5511999999999?text=Ol%C3%A1%20J.J.joias!%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es."
-      target="_blank"
-      >Chamar no WhatsApp</a
-    >
-  </section>
+<section id="contato">
+  <h2>Contato</h2>
+  <p>Para solicitar reparos, peças exclusivas ou tirar dúvidas, fale conosco:</p>
+  <a class="botao botao-whatsapp" href="https://wa.me/5586999883355?text=Olá!%20Gostaria%20de%20mais%20informações%20sobre%20os%20serviços%20da%20J.J.%20Joias." target="_blank">Chamar no WhatsApp</a>
+</section>
 
-  <footer>© 2025 J.J.joias. Todos os direitos reservados.</footer>
+<footer>© 2025 J.J. Joias – Tradição e Exclusividade. Todos os direitos reservados.</footer>
+
 </body>
 </html>
