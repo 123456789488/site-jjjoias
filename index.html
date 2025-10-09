@@ -2,112 +2,441 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>J.J. Joias | Elo da Tradição e Arte</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>J.J. Joias – Brilho que conta histórias</title>
+
+  <!-- Fontes e ícones -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Roboto:wght@400;500&display=swap');
-    :root {
-      --preto: #111;
-      --cinza: #444;
-      --dourado: #c9a14d;
-      --dourado-claro: #f1e5c9;
-      --branco: #fff;
-      --verde-wpp: #25D366;
-      --rosa-insta: #d6249f;
+    :root{
+      --gold: #c29d5f;
+      --gold-dark: #a67c37;
+      --white: #ffffff;
+      --dark: #121212;
+      --bg-light: #faf7f5;
+      --text-dark: #222;
+      --transition: 0.25s ease;
     }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family:'Roboto', sans-serif; background:#fff; color:#111; }
-    header { background:var(--preto); color:var(--branco); text-align:center; padding:80px 20px; }
-    header img { height:120px; animation: fadeInDown 1s both; }
-    header h1 { font-family:'Playfair Display', serif; font-size:3.2rem; margin-top:20px; animation: fadeInUp 1s 0.3s both; }
-    header p { font-size:1.2rem; max-width:700px; margin:20px auto; line-height:1.6; animation: fadeInUp 1s 0.5s both; }
-    nav { position:sticky; top:0; background:var(--dourado); display:flex; justify-content:center; padding:15px; z-index:1000; }
-    nav a { color:var(--preto); margin:0 20px; text-decoration:none; font-weight:500; transition:opacity .3s; }
-    nav a:hover { opacity:0.7; }
-    section { padding:60px 20px; text-align:center; }
-    section h2 { font-family:'Playfair Display', serif; font-size:2.4rem; margin-bottom:20px; color:var(--cinza); }
-    section p { font-size:1.1rem; max-width:700px; margin:0 auto 30px; line-height:1.6; }
-    .botao { display:inline-block; padding:15px 30px; border-radius:6px; font-weight:600; text-decoration:none; color:#fff; transition:transform .3s; }
-    .botao-whatsapp { background:var(--verde-wpp); }
-    .botao-whatsapp:hover { transform:scale(1.05); }
-    .botao-insta { background:var(--rosa-insta); margin-left:15px; }
-    .produtos-container { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:30px; margin-top:40px; }
-    .produto { background:#fff; border:1px solid var(--cinza); border-radius:12px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.05); transition:transform .3s; }
-    .produto:hover { transform:scale(1.03); }
-    .produto img { width:100%; display:block; }
-    .produto-info { padding:20px; text-align:left; }
-    .produto-info h3 { font-size:1.3rem; margin-bottom:10px; font-family:'Playfair Display', serif; }
-    .produto-info p { color:var(--cinza); font-weight:500; }
-    #servicos { background:var(--dourado-claro); padding:60px 20px; }
-    #servicos ul { list-style:none; max-width:700px; margin:0 auto; text-align:left; }
-    #servicos li { font-size:1.1rem; margin-bottom:15px; line-height:1.6; }
-    footer { background:var(--preto); color:var(--branco); text-align:center; padding:20px; font-size:0.9rem; }
-    /* animações */
-    @keyframes fadeInDown { from { opacity:0; transform: translateY(-20px);} to { opacity:1; transform:none; } }
-    @keyframes fadeInUp { from { opacity:0; transform: translateY(20px);} to { opacity:1; transform:none; } }
+
+    /* Base */
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:"Poppins",sans-serif;
+      background:var(--bg-light);
+      color:var(--text-dark);
+      transition: background var(--transition), color var(--transition);
+      overflow-x:hidden;
+    }
+
+    /* HEADER */
+    header{
+      position:fixed; top:0; left:0; right:0;
+      height:64px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      padding:0 20px;
+      background:var(--white);
+      box-shadow:0 2px 10px rgba(0,0,0,0.06);
+      z-index:1200;
+    }
+    .left, .center, .right { display:flex; align-items:center; gap:12px; }
+    .logo{ font-weight:700; color:var(--gold); font-size:1.1rem; margin-left:6px }
+
+    nav{ gap:22px; display:flex; justify-content:center; align-items:center; flex:1; }
+    nav a{ text-decoration:none; color:var(--text-dark); font-weight:600; position:relative; padding:6px 2px; }
+    nav a::after{ content:""; position:absolute; left:0; bottom:-6px; height:2px; width:0; background:var(--gold); transition:width .25s; }
+    nav a:hover::after{ width:100%; }
+
+    /* search + theme */
+    .search-bar{
+      display:flex; align-items:center; gap:8px;
+      background:var(--bg-light); padding:6px 10px; border-radius:10px; border:1px solid #e6e6e6;
+    }
+    .search-bar input{
+      border:0; outline:0; background:transparent; width:160px; font-size:0.95rem;
+      transition: width .25s;
+    }
+    .search-bar input:focus{ width:230px; }
+
+    .theme-toggle{
+      background:none; border:0; cursor:pointer; font-size:1.05rem; color:var(--gold-dark);
+      padding:6px;
+    }
+
+    /* SIDEBAR (área do usuário) */
+    .sidebar{
+      position:fixed; left:-280px; top:0; height:100vh; width:260px;
+      padding:28px 18px; background:var(--white); box-shadow:3px 0 18px rgba(0,0,0,0.12);
+      transition:left .32s ease; z-index:1300; overflow:auto;
+    }
+    .sidebar.active{ left:0; }
+    .sidebar h2{ color:var(--gold-dark); margin-bottom:14px; }
+    .sidebar a{
+      display:flex; gap:12px; align-items:center; text-decoration:none; color:var(--text-dark);
+      padding:10px 6px; border-radius:8px; font-weight:600; transition: background .18s, color .18s;
+    }
+    .sidebar a:hover{ background: #f6f0df; color:var(--gold-dark); }
+
+    /* OVERLAY (clicar fora fecha sidebar) */
+    .overlay{
+      position:fixed; inset:0; background:rgba(0,0,0,0.45); display:none; z-index:1250;
+    }
+    .overlay.active{ display:block; }
+
+    /* HERO */
+    .hero{
+      padding:110px 20px 30px; text-align:center; background:var(--white);
+    }
+    .hero h1{ color:var(--gold); font-size:2.1rem; margin-bottom:8px; font-weight:700; }
+    .hero p{ max-width:760px; margin:0 auto; color:#444; line-height:1.5; }
+
+    /* CARROSSEL (mostra 2 por vez em desktop, 1 em mobile) */
+    .carousel{
+      display:flex;
+      gap:18px;
+      padding:28px;
+      overflow-x:auto;
+      scroll-snap-type:x mandatory;
+      scroll-behavior:smooth;
+      -webkit-overflow-scrolling:touch;
+      cursor:grab;
+    }
+    .carousel.dragging{ cursor:grabbing; }
+    .carousel::-webkit-scrollbar{ height:8px; }
+    .carousel::-webkit-scrollbar-thumb{ background:rgba(0,0,0,0.12); border-radius:6px; }
+
+    .carousel-item{
+      scroll-snap-align:start;
+      flex:0 0 calc(50% - 9px); /* 2 por vez */
+      background:var(--white);
+      border-radius:12px;
+      box-shadow:0 6px 18px rgba(0,0,0,0.06);
+      padding:18px;
+      transition:transform .22s;
+    }
+    .carousel-item:hover{ transform:translateY(-6px); }
+    .carousel-item h3{ color:var(--gold); margin-bottom:8px; font-size:1.05rem; }
+
+    @media (max-width:720px){
+      .carousel-item{ flex:0 0 86%; } /* 1 por vez em celular */
+      nav{ display:none; } /* simplifica nav em celular; keep search + icons */
+    }
+
+    /* SECTIONS */
+    section{ padding:10px 0 30px; }
+    #presentes h2, #ocasioes h2{ text-align:center; color:var(--gold); margin-top:6px; margin-bottom:6px; font-family:inherit; }
+
+    /* SERVIÇOS - detalhes em overlay */
+    .service-overlay{
+      position:fixed; inset:0; display:none; justify-content:center; align-items:center; z-index:1400;
+      background: rgba(0,0,0,0.6);
+    }
+    .service-overlay.active{ display:flex; }
+    .service-box{
+      max-width:720px; width:92%; background:var(--white); border-radius:12px; padding:22px; color:var(--text-dark);
+      box-shadow:0 8px 30px rgba(0,0,0,0.3); line-height:1.55; text-align:left;
+    }
+    .service-box h2{ color:var(--gold); margin-bottom:10px; }
+
+    /* BOTÕES flutuantes (WhatsApp / Instagram) */
+    .float-btn{ position:fixed; right:20px; bottom:18px; display:flex; flex-direction:column; gap:12px; z-index:1500; }
+    .float-btn a{
+      width:56px; height:56px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+      color:#fff; text-decoration:none; box-shadow:0 6px 18px rgba(0,0,0,0.18); transition: transform .2s;
+    }
+    .float-btn a:hover{ transform:translateY(-6px); }
+    .whatsapp{ background:#25D366; }
+    .instagram{ background:linear-gradient(45deg,#F58529,#DD2A7B,#8134AF); }
+
+    /* FOOTER */
+    footer{ padding:28px; text-align:center; background:var(--dark); color:var(--white); margin-top:20px; }
+
+    /* DARK MODE (tema escuro) */
+    .dark-mode{
+      background:#0e0e0f; color:#efefef;
+    }
+    .dark-mode header{ background:#111; box-shadow:0 2px 12px rgba(0,0,0,0.6); }
+    .dark-mode .sidebar{ background:#141414; color:#eee; box-shadow:3px 0 18px rgba(0,0,0,0.6); }
+    .dark-mode .service-box, .dark-mode .carousel-item, .dark-mode .hero{ background:#181818; color:#eee; box-shadow:0 6px 20px rgba(0,0,0,0.6); }
+    .dark-mode footer{ background:#0b0b0b; color:#fff; }
+    .dark-mode .search-bar{ background:#111; border-color:#222; }
+    .dark-mode nav a{ color:#eee; }
+    .dark-mode .logo{ color:var(--gold); }
+
+    /* pequenas melhorias de acessibilidade/visual */
+    a[aria-hidden="true"]{ pointer-events:none; opacity:0.6; }
   </style>
 </head>
 <body>
 
-<header>
-  <img src="logo-jj.png" alt="Logo J.J. Joias">
-  <h1>J.J. Joias</h1>
-  <p>Conectando tradição, arte e personalização em joias de ouro, prata e moeda antiga.</p>
-</header>
-
-<nav>
-  <a href="#inicio">Início</a>
-  <a href="#produtos">Produtos</a>
-  <a href="#servicos">Serviços</a>
-  <a href="#contato">Contato</a>
-</nav>
-
-<section id="inicio">
-  <h2>Bem-vindo à Elegância</h2>
-  <p>Nossa marca une técnicas tradicionais de ourivesaria com design contemporâneo, entregando peças únicas capazes de contar histórias.</p>
-  <a class="botao botao-whatsapp" href="https://wa.me/5586999883355" target="_blank">WhatsApp</a>
-  <a class="botao botao-insta" href="https://www.instagram.com/j.j.joias_2024?igsh=NGR4amI5ZHNnNmg3" target="_blank">Instagram</a>
-</section>
-
-<section id="produtos">
-  <h2>Nossas Joias</h2>
-  <div class="produtos-container">
-    <div class="produto">
-      <img src="https://via.placeholder.com/250?text=Brincos+Prata+925" alt="Brincos Prata">
-      <div class="produto-info">
-        <h3>Brincos Prata 925</h3>
-        <p>R$ 67,90</p>
-      </div>
+  <!-- HEADER -->
+  <header>
+    <div class="left">
+      <i class="fa-solid fa-house home-icon" id="homeBtn" title="Área do usuário"></i>
+      <div class="logo">J.J. Joias</div>
     </div>
-    <div class="produto">
-      <img src="https://via.placeholder.com/250?text=Colar+Ouro" alt="Colar Banhado a Ouro">
-      <div class="produto-info">
-        <h3>Colar Banhado a Ouro</h3>
-        <p>R$ 114,00</p>
+
+    <div class="center">
+      <nav aria-label="Principal">
+        <a href="#inicio">Início</a>
+        <a href="#presentes">Presentes</a>
+        <a href="#ocasioes">Ocasiões</a>
+        <a href="#servicos">Serviços</a>
+        <a href="#novidades">Novidades</a>
+      </nav>
+    </div>
+
+    <div class="right">
+      <div class="search-bar" title="Pesquisar">
+        <input id="searchInput" type="text" placeholder="Buscar joias..." aria-label="Buscar joias">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </div>
+      <button id="themeToggle" class="theme-toggle" title="Alternar tema" aria-label="Alternar tema">
+        <i class="fa-solid fa-circle-half-stroke"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- SIDEBAR (Área do usuário) -->
+  <aside class="sidebar" id="sidebar" aria-hidden="true">
+    <h2>Área do Usuário</h2>
+    <a href="#" id="btnLogin"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+    <a href="#" id="btnCatalog"><i class="fa-solid fa-bag-shopping"></i> Catálogo</a>
+    <a href="#" id="btnProfile"><i class="fa-solid fa-user"></i> Perfil</a>
+    <a href="#" id="btnOrders"><i class="fa-solid fa-cart-shopping"></i> Meus Pedidos</a>
+  </aside>
+
+  <!-- Overlay (clica fora fecha sidebar) -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- HERO -->
+  <main>
+    <section id="inicio" class="hero">
+      <h1>Descubra o brilho que combina com você</h1>
+      <p>Desde alianças de casamento até presentes de formatura — cada joia da J.J. Joias é feita para eternizar momentos.</p>
+    </section>
+
+    <!-- GUIA DE PRESENTES (carrossel arrastável) -->
+    <section id="presentes">
+      <h2>Guia de Presentes</h2>
+      <div class="carousel" id="presentesCarousel" aria-label="Guia de Presentes">
+        <article class="carousel-item">
+          <h3>Colar Personalizado</h3>
+          <p>Pingentes gravados com nomes ou datas — ideal para namoro e aniversários.</p>
+        </article>
+
+        <article class="carousel-item">
+          <h3>Anel de Formatura</h3>
+          <p>Peças com símbolos e gravações que eternizam sua conquista.</p>
+        </article>
+
+        <article class="carousel-item">
+          <h3>Pulseira Elegante</h3>
+          <p>Design fino, ótima opção de presente sofisticado para ocasiões especiais.</p>
+        </article>
+
+        <article class="carousel-item">
+          <h3>Brincos Luxuosos</h3>
+          <p>Com pedras e acabamentos nobres para comemorar momentos marcantes.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- OCASIÕES (apresenta 2 por vez em desktop) -->
+    <section id="ocasioes" style="padding:20px 0;">
+      <h2>Ocasiões Especiais</h2>
+      <div class="carousel" id="ocasioesCarousel" aria-label="Ocasiões Especiais">
+        <article class="carousel-item">
+          <h3>Casamentos</h3>
+          <p>Conjuntos de alianças, colares e conjuntos para noivos, acabamento perfeito para o grande dia.</p>
+        </article>
+
+        <article class="carousel-item">
+          <h3>Namoro</h3>
+          <p>Pingentes de coração, colares gravados e conjuntos “couple” para celebrar o amor.</p>
+        </article>
+
+        <article class="carousel-item">
+          <h3>Aniversários</h3>
+          <p>Peças escolhidas para marcar data com elegância e significado.</p>
+        </article>
+
+        <article class="carousel-item">
+          <h3>Conquistas</h3>
+          <p>Joias comemorativas — formaturas, promoções e metas alcançadas.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- SERVIÇOS -->
+    <section id="servicos" style="padding:26px 20px; background:transparent; text-align:center;">
+      <h2 style="color:var(--gold);">Serviços Exclusivos</h2>
+      <p>Nosso compromisso vai além da joia — cuidamos de cada detalhe com técnicas especializadas.</p>
+      <div style="margin-top:14px;">
+        <button id="openServicesBtn">Saiba mais</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- SOBREPOSIÇÃO DE SERVIÇOS (detalhes) -->
+  <div class="service-overlay" id="serviceOverlay" aria-hidden="true">
+    <div class="service-box" role="dialog" aria-modal="true" aria-labelledby="servicesTitle">
+      <h2 id="servicesTitle">Como fazemos (resumo técnico)</h2>
+
+      <p><strong>Polimento e restauração</strong><br>
+      Primeiro a peça passa por limpeza ultrassônica para remover sujeiras. Em seguida fazemos polimento com abrasivos progressivos (pastas e discos especiais) para remover micro-arranhões e recuperar o brilho. Finalizamos com limpeza e inspeção.</p>
+
+      <p><strong>Gravação a laser</strong><br>
+      Projetamos o texto ou símbolo digitalmente e marcamos a peça com laser de precisão, que permite gravações finas, legíveis e duráveis em metais como ouro e prata. É ideal para nomes, datas e pequenos desenhos.</p>
+
+      <p><strong>Soldas e ajustes</strong><br>
+      Utilizamos ligas e técnicas compatíveis (solda a oxíteno, micro-solda elétrica ou laser) para unir partes, ajustar tamanhos e reparar danos, seguido de acabamento e polimento para esconder pontos de intervenção.</p>
+
+      <p><strong>Criação sob medida</strong><br>
+      Trabalhamos a partir de projeto: modelagem em CAD (quando necessário), escolha de materiais e pedras, prototipagem e produção com acabamento artesanal e controle de qualidade.</p>
+
+      <div style="text-align:right; margin-top:12px;">
+        <button onclick="toggleServiceOverlay(false)">Fechar</button>
       </div>
     </div>
   </div>
-</section>
 
-<section id="servicos">
-  <h2>Nossos Serviços</h2>
-  <p>Oferecemos atendimento especializado com técnicas confiáveis e acabamento refinado.</p>
-  <ul>
-    <li><strong>Soldas em ouro, prata e moeda antiga</strong> – reparamos anéis e colares com precisão artesanal.</li>
-    <li><strong>Limpeza e polimento profissional</strong> – restauramos o brilho original mantendo a integridade da peça.</li>
-    <li><strong>Joias personalizadas</strong> – criação de modelos exclusivos sob medida.</li>
-    <li><strong>Gravações e ajustes</strong> – adaptação do tamanho e personalização com gravação de nomes ou datas.</li>
-    <li><strong>Análise gratuita</strong> – avaliamos a necessidade de reparo ou criação personalizada sem compromisso.</li>
-  </ul>
-</section>
+  <!-- RODAPÉ -->
+  <footer>
+    <p>© 2025 J.J. Joias — Tradição, Arte e Exclusividade</p>
+  </footer>
 
-<section id="contato">
-  <h2>Contato</h2>
-  <p>Para solicitar reparos, peças exclusivas ou tirar dúvidas, fale conosco:</p>
-  <a class="botao botao-whatsapp" href="https://wa.me/5586999883355?text=Olá!%20Gostaria%20de%20mais%20informações%20sobre%20os%20serviços%20da%20J.J.%20Joias." target="_blank">Chamar no WhatsApp</a>
-</section>
+  <!-- BOTÕES FLUTUANTES DE CONTATO -->
+  <div class="float-btn" aria-hidden="false">
+    <a class="whatsapp" href="https://wa.me/55XXXXXXXXXXX" target="_blank" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+    <a class="instagram" href="https://instagram.com/" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+  </div>
 
-<footer>© 2025 J.J. Joias – Tradição e Exclusividade. Todos os direitos reservados.</footer>
+  <!-- SCRIPTS: drag carousels, sidebar, overlay, theme -->
+  <script>
+    // Sidebar toggle (ícone de casinha)
+    const homeBtn = document.getElementById('homeBtn');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
 
+    function openSidebar(){
+      sidebar.classList.add('active');
+      overlay.classList.add('active');
+      sidebar.setAttribute('aria-hidden','false');
+    }
+    function closeSidebar(){
+      sidebar.classList.remove('active');
+      overlay.classList.remove('active');
+      sidebar.setAttribute('aria-hidden','true');
+    }
+
+    homeBtn && homeBtn.addEventListener('click', () => {
+      if(sidebar.classList.contains('active')) closeSidebar();
+      else openSidebar();
+    });
+
+    // clicar fora fecha
+    overlay && overlay.addEventListener('click', () => { closeSidebar(); });
+
+    // fechar com ESC
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === "Escape"){
+        closeSidebar();
+        toggleServiceOverlay(false);
+      }
+    });
+
+    // Theme toggle (persistente)
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+    const savedTheme = localStorage.getItem('jj_theme');
+    if(savedTheme === 'dark'){ body.classList.add('dark-mode'); }
+    themeToggle && themeToggle.addEventListener('click', ()=>{
+      body.classList.toggle('dark-mode');
+      localStorage.setItem('jj_theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
+    });
+
+    // Service overlay
+    const serviceOverlay = document.getElementById('serviceOverlay');
+    const openServicesBtn = document.getElementById('openServicesBtn');
+    function toggleServiceOverlay(show){
+      serviceOverlay.classList.toggle('active', !!show);
+      serviceOverlay.setAttribute('aria-hidden', show ? 'false' : 'true');
+    }
+    openServicesBtn && openServicesBtn.addEventListener('click', ()=> toggleServiceOverlay(true));
+    serviceOverlay && serviceOverlay.addEventListener('click', (e)=>{
+      if(e.target === serviceOverlay) toggleServiceOverlay(false);
+    });
+
+    // CARROSSEIS: drag to scroll (works for any element with class .carousel)
+    const carousels = document.querySelectorAll('.carousel');
+    carousels.forEach(carousel => {
+      let isDown = false;
+      let startX;
+      let scrollLeft;
+
+      // Pointer events for mouse & touch
+      carousel.addEventListener('pointerdown', (e)=>{
+        isDown = true;
+        carousel.classList.add('dragging');
+        startX = e.pageX - carousel.offsetLeft;
+        scrollLeft = carousel.scrollLeft;
+        carousel.setPointerCapture(e.pointerId);
+      });
+
+      carousel.addEventListener('pointermove', (e)=>{
+        if(!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - carousel.offsetLeft;
+        const walk = (x - startX) * 1; // multiplier for speed
+        carousel.scrollLeft = scrollLeft - walk;
+      });
+
+      carousel.addEventListener('pointerup', (e)=>{
+        isDown = false;
+        carousel.classList.remove('dragging');
+        try { carousel.releasePointerCapture(e.pointerId); } catch(err){ /* ignore */ }
+      });
+
+      carousel.addEventListener('pointercancel', ()=>{
+        isDown = false;
+        carousel.classList.remove('dragging');
+      });
+
+      // wheel -> horizontal scroll
+      carousel.addEventListener('wheel', (e)=>{
+        if(Math.abs(e.deltaY) > 0){
+          e.preventDefault();
+          carousel.scrollLeft += e.deltaY;
+        }
+      }, { passive:false });
+    });
+
+    // (Opcional) fechar a sidebar quando o usuário clica em qualquer link dela
+    document.querySelectorAll('.sidebar a').forEach(a=>{
+      a.addEventListener('click', ()=>{
+        closeSidebar();
+      });
+    });
+
+    // SEARCH: permite digitar (já funcional). Adicionei um pequeno comportamento (Enter)
+    const searchInput = document.getElementById('searchInput');
+    searchInput && searchInput.addEventListener('keydown', (e)=>{
+      if(e.key === 'Enter'){
+        const q = searchInput.value.trim();
+        if(q) alert('Pesquisar por: ' + q);
+      }
+    });
+
+    // Bottleneck: garantir que carousels iniciem um pouco deslocados (opcional)
+    window.addEventListener('load', ()=>{
+      carousels.forEach(c => c.scrollLeft = 0);
+    });
+  </script>
 </body>
 </html>
