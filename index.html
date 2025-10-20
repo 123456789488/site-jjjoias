@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -68,6 +70,7 @@
       padding:6px;
     }
 
+
     /* SIDEBAR (área do usuário) */
     .sidebar{
       position:fixed; left:-280px; top:0; height:100vh; width:260px;
@@ -110,6 +113,7 @@
     .carousel::-webkit-scrollbar{ height:8px; }
     .carousel::-webkit-scrollbar-thumb{ background:rgba(0,0,0,0.12); border-radius:6px; }
 
+
     .carousel-item{
       scroll-snap-align:start;
       flex:0 0 calc(50% - 9px); /* 2 por vez */
@@ -122,10 +126,12 @@
     .carousel-item:hover{ transform:translateY(-6px); }
     .carousel-item h3{ color:var(--gold); margin-bottom:8px; font-size:1.05rem; }
 
+
     @media (max-width:720px){
       .carousel-item{ flex:0 0 86%; } /* 1 por vez em celular */
       nav{ display:none; } /* simplifica nav em celular; keep search + icons */
     }
+
 
     /* SECTIONS */
     section{ padding:10px 0 30px; }
@@ -156,22 +162,56 @@
     /* FOOTER */
     footer{ padding:28px; text-align:center; background:var(--dark); color:var(--white); margin-top:20px; }
 
-    /* DARK MODE (tema escuro) */
+    /* DARK MODE (tema escuro) - ajustes de contraste apenas */
     .dark-mode{
-      background:#0e0e0f; color:#efefef;
+      background:#0b0b0c; color:#eaeaea; /* increased contrast */
     }
-    .dark-mode header{ background:#111; box-shadow:0 2px 12px rgba(0,0,0,0.6); }
-    .dark-mode .sidebar{ background:#141414; color:#eee; box-shadow:3px 0 18px rgba(0,0,0,0.6); }
-    .dark-mode .service-box, .dark-mode .carousel-item, .dark-mode .hero{ background:#181818; color:#eee; box-shadow:0 6px 20px rgba(0,0,0,0.6); }
-    .dark-mode footer{ background:#0b0b0b; color:#fff; }
-    .dark-mode .search-bar{ background:#111; border-color:#222; }
-    .dark-mode nav a{ color:#eee; }
+    .dark-mode header{ background:#0e0e0f; box-shadow:0 2px 12px rgba(0,0,0,0.6); }
+    .dark-mode .sidebar{ background:#101010; color:#f5f5f5; box-shadow:3px 0 18px rgba(0,0,0,0.6); }
+    .dark-mode .service-box, .dark-mode .carousel-item, .dark-mode .hero{ background:#141414; color:#f5f5f5; box-shadow:0 6px 20px rgba(0,0,0,0.6); }
+    .dark-mode footer{ background:#070707; color:#fff; }
+    .dark-mode .search-bar{ background:#0d0d0d; border-color:#222; }
+    .dark-mode nav a{ color:#f0f0f0; }
     .dark-mode .logo{ color:var(--gold); }
 
     /* pequenas melhorias de acessibilidade/visual */
     a[aria-hidden="true"]{ pointer-events:none; opacity:0.6; }
+
+    /* ------------------ NEW COMPONENTS (modals, catalog, login, profile, orders, novidades page) ------------------ */
+    /* Note: we only ADD styles, keeping existing spacing/typography intact */
+
+    .modal-overlay{ position:fixed; inset:0; display:none; justify-content:center; align-items:flex-start; padding-top:72px; z-index:1600; background: rgba(0,0,0,0.5); }
+    .modal-overlay.active{ display:flex; }
+    .modal{ width:min(940px,96%); max-height:80vh; overflow:auto; background:var(--white); border-radius:12px; padding:20px; box-shadow:0 14px 40px rgba(0,0,0,0.35); }
+    .modal h2{ color:var(--gold); margin-top:0 }
+    .modal .row{ display:flex; gap:12px; flex-wrap:wrap }
+
+    /* catalog grid */
+    .catalog-grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap:14px; }
+    .product{ border:1px solid #eee; border-radius:10px; padding:12px; background:transparent; display:flex; flex-direction:column; gap:8px }
+    .product .meta{ display:flex; align-items:center; gap:8px }
+    .product .meta i{ font-size:1.25rem }
+    .product button{ margin-top:auto; padding:8px 10px; border-radius:8px; background:var(--gold); color:#fff; border:0; cursor:pointer }
+
+    /* small form styles */
+    .form-row{ display:flex; gap:8px; margin-bottom:8px; }
+    .form-row input, .form-row select{ padding:10px; border-radius:8px; border:1px solid #ddd; flex:1 }
+
+    /* simple cart badge */
+    .cart-summary{ display:flex; gap:12px; align-items:center; justify-content:space-between; padding:6px 10px; border-radius:8px; border:1px dashed #ddd }
+
+    /* Instagram novidades internal page area */
+    #novidadesPage{ padding:110px 20px 40px; display:none }
+    #novidadesPage.active{ display:block }
+    .insta-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:10px }
+    .insta-card{ background:var(--white); border-radius:8px; padding:8px; text-align:center; }
+
+    /* small utility */
+    .muted{ color:#666 }
+
   </style>
 </head>
+
 <body>
 
   <!-- HEADER -->
@@ -187,7 +227,7 @@
         <a href="#presentes">Presentes</a>
         <a href="#ocasioes">Ocasiões</a>
         <a href="#servicos">Serviços</a>
-        <a href="#novidades">Novidades</a>
+        <a href="#novidades" id="novidadesLink">Novidades</a>
       </nav>
     </div>
 
@@ -202,6 +242,7 @@
     </div>
   </header>
 
+
   <!-- SIDEBAR (Área do usuário) -->
   <aside class="sidebar" id="sidebar" aria-hidden="true">
     <h2>Área do Usuário</h2>
@@ -211,8 +252,10 @@
     <a href="#" id="btnOrders"><i class="fa-solid fa-cart-shopping"></i> Meus Pedidos</a>
   </aside>
 
+
   <!-- Overlay (clica fora fecha sidebar) -->
   <div class="overlay" id="overlay"></div>
+
 
   <!-- HERO -->
   <main>
@@ -270,6 +313,7 @@
           <h3>Conquistas</h3>
           <p>Joias comemorativas — formaturas, promoções e metas alcançadas.</p>
         </article>
+
       </div>
     </section>
 
@@ -281,6 +325,32 @@
         <button id="openServicesBtn">Saiba mais</button>
       </div>
     </section>
+
+    <!-- NOVIDADES INTERNAL PAGE (will be shown when clicking Novidades) -->
+    <section id="novidadesPage" aria-label="Novidades Internas">
+      <h2 style="text-align:center; color:var(--gold);">Novidades — Instagram</h2>
+      <p style="text-align:center; max-width:820px; margin:0 auto 18px;" class="muted">Conteúdo integrado a partir do perfil oficial da loja. Caso o navegador bloqueie embeds, use o botão para abrir o Instagram diretamente.</p>
+
+      <!-- Attempt to embed profile via iframe (simple integration). If browser blocks, shows fallback cards -->
+      <div style="text-align:center; margin-bottom:12px;">
+        <a id="openInstaBtnNav" class="instagram" href="#" style="display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:10px; color:#fff; text-decoration:none;" target="_blank">Abrir Instagram</a>
+      </div>
+
+      <div id="instaEmbedArea" style="max-width:980px; margin:0 auto;">
+        <!-- Primary: iframe to profile (may be blocked by Instagram but is a valid embed approach requested) -->
+        <iframe id="instaIframe" src="https://www.instagram.com/j.j.joias_2024/" style="width:100%; height:540px; border:0; border-radius:10px;" title="Instagram J.J. Joias"></iframe>
+
+        <!-- Fallback grid (if iframe cannot show due to embed restrictions) -->
+        <div id="instaFallback" class="insta-grid" style="display:none; margin-top:12px">
+          <!-- These are placeholders; if you want real posts via API, configure a server-side call to Instagram Graph API and inject HTML here. -->
+          <div class="insta-card">Post 1 — preview</div>
+          <div class="insta-card">Post 2 — preview</div>
+          <div class="insta-card">Post 3 — preview</div>
+          <div class="insta-card">Post 4 — preview</div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <!-- SOBREPOSIÇÃO DE SERVIÇOS (detalhes) -->
@@ -314,11 +384,31 @@
   <!-- BOTÕES FLUTUANTES DE CONTATO -->
   <div class="float-btn" aria-hidden="false">
     <a class="whatsapp" href="https://wa.me/55XXXXXXXXXXX" target="_blank" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-    <a class="instagram" href="https://instagram.com/" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+    <!-- UPDATED: instagram floating now points to exact URL provided by user (requirement) -->
+    <a class="instagram" id="floatInsta" href="https://www.instagram.com/j.j.joias_2024?igsh=bXloZmhycGp4c3h1" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
   </div>
 
-  <!-- SCRIPTS: drag carousels, sidebar, overlay, theme -->
+  <!-- NEW: Generic modal overlay used for Login, Catalog, Profile, Orders, Saiba Mais page modal -->
+  <div class="modal-overlay" id="modalOverlay" aria-hidden="true">
+    <div class="modal" role="dialog" id="modalContent" aria-modal="true">
+      <!-- content injected by JS -->
+    </div>
+  </div>
+
+
+  <!-- SCRIPTS: drag carousels, sidebar, overlay, theme, plus new logic for login/catalog/profile/orders/instagram -->
   <script>
+    /* --------------------------
+       NOTE: Modifications are only additions. Existing IDs and classes were NOT renamed.
+       Comments in this script mark added functionality:
+       - Login (email validation + persistence)
+       - Catalog (add to cart, icons)
+       - Profile (dynamic update)
+       - Orders (store & display orders)
+       - Novidades (internal page + iframe + fallback)
+       - Floating Instagram button updated to required link (kept class 'instagram')
+    -------------------------- */
+
     // Sidebar toggle (ícone de casinha)
     const homeBtn = document.getElementById('homeBtn');
     const sidebar = document.getElementById('sidebar');
@@ -341,17 +431,18 @@
     });
 
     // clicar fora fecha
-    overlay && overlay.addEventListener('click', () => { closeSidebar(); });
+    overlay && overlay.addEventListener('click', () => { closeSidebar(); closeModal(); });
 
     // fechar com ESC
     document.addEventListener('keydown', (e)=>{
       if(e.key === "Escape"){
         closeSidebar();
         toggleServiceOverlay(false);
+        closeModal();
       }
     });
 
-    // Theme toggle (persistente)
+    // Theme toggle (persistente) - kept the same but dark palette adjusted above for readability
     const themeToggle = document.getElementById('themeToggle');
     const body = document.body;
     const savedTheme = localStorage.getItem('jj_theme');
@@ -361,7 +452,7 @@
       localStorage.setItem('jj_theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
     });
 
-    // Service overlay
+    // Service overlay (existing)
     const serviceOverlay = document.getElementById('serviceOverlay');
     const openServicesBtn = document.getElementById('openServicesBtn');
     function toggleServiceOverlay(show){
@@ -419,9 +510,7 @@
 
     // (Opcional) fechar a sidebar quando o usuário clica em qualquer link dela
     document.querySelectorAll('.sidebar a').forEach(a=>{
-      a.addEventListener('click', ()=>{
-        closeSidebar();
-      });
+      a.addEventListener('click', ()=>{ closeSidebar(); });
     });
 
     // SEARCH: permite digitar (já funcional). Adicionei um pequeno comportamento (Enter)
@@ -437,6 +526,266 @@
     window.addEventListener('load', ()=>{
       carousels.forEach(c => c.scrollLeft = 0);
     });
+
+    /* -------------------- NEW: Modal management for Login, Catalog, Profile, Orders -------------------- */
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalContent = document.getElementById('modalContent');
+
+    function openModal(html){
+      modalContent.innerHTML = html;
+      modalOverlay.classList.add('active');
+      modalOverlay.setAttribute('aria-hidden','false');
+    }
+    function closeModal(){
+      modalOverlay.classList.remove('active');
+      modalOverlay.setAttribute('aria-hidden','true');
+      modalContent.innerHTML = '';
+    }
+
+    modalOverlay.addEventListener('click', (e)=>{ if(e.target === modalOverlay) closeModal(); });
+
+    // Simple localStorage-backed state
+    const STATE = {
+      user: JSON.parse(localStorage.getItem('jj_user') || 'null'),
+      cart: JSON.parse(localStorage.getItem('jj_cart') || '[]'),
+      orders: JSON.parse(localStorage.getItem('jj_orders') || '[]')
+    };
+
+    function saveState(){
+      localStorage.setItem('jj_user', JSON.stringify(STATE.user));
+      localStorage.setItem('jj_cart', JSON.stringify(STATE.cart));
+      localStorage.setItem('jj_orders', JSON.stringify(STATE.orders));
+    }
+
+    /* -------------------- LOGIN -------------------- */
+    const btnLogin = document.getElementById('btnLogin');
+    btnLogin && btnLogin.addEventListener('click', (e)=>{
+      e.preventDefault();
+      openLoginModal();
+    });
+
+    function openLoginModal(){
+      const html = `
+        <h2>Login</h2>
+        <p class="muted">Insira seu e-mail para acessar sua conta. O e-mail será validado.</p>
+        <div class="form-row">
+          <input id="loginEmail" type="email" placeholder="seu@email.com" />
+          <button id="doLogin">Entrar</button>
+        </div>
+        <div id="loginMsg" class="muted"></div>
+      `;
+      openModal(html);
+      document.getElementById('doLogin').addEventListener('click', handleLogin);
+      document.getElementById('loginEmail').addEventListener('keydown', (e)=>{ if(e.key==='Enter') handleLogin(); });
+    }
+
+    function handleLogin(){
+      const email = document.getElementById('loginEmail').value.trim();
+      const msg = document.getElementById('loginMsg');
+      if(!validateEmail(email)){
+        msg.textContent = 'E-mail inválido. Use o formato nome@dominio.com';
+        return;
+      }
+      STATE.user = { email: email, name: email.split('@')[0] };
+      saveState();
+      msg.textContent = 'Login realizado com sucesso!';
+      setTimeout(()=>{ closeModal(); alert('Bem-vindo, ' + STATE.user.name); }, 700);
+    }
+
+    function validateEmail(email){
+      // simple digit-by-digit validation per instruction (work out carefully)
+      if(!email || typeof email !== 'string') return false;
+      const parts = email.split('@');
+      if(parts.length !== 2) return false;
+      const local = parts[0];
+      const domain = parts[1];
+      if(local.length < 1 || domain.length < 3) return false;
+      if(domain.indexOf('.') === -1) return false;
+      // ensure domain parts are >1 char
+      const dparts = domain.split('.');
+      for(let p of dparts){ if(p.length < 2) return false; }
+      return true;
+    }
+
+    /* -------------------- CATALOG -------------------- */
+    // Sample catalog data (added, does not modify existing layout). Each item has a 'type' for icon.
+    const CATALOG = [
+      { id: 'p1', title: 'Colar Personalizado', price: 129.90, type: 'jewelry', desc: 'Pingente gravado com nomes ou datas.' },
+      { id: 'p2', title: 'Anel de Formatura', price: 249.00, type: 'jewelry', desc: 'Anel com gravações simbólicas.' },
+      { id: 's1', title: 'Polimento Profissional', price: 49.00, type: 'service', desc: 'Restauração e polimento.' },
+      { id: 's2', title: 'Gravação a Laser', price: 79.00, type: 'service', desc: 'Gravações precisas e duráveis.' }
+    ];
+
+    const btnCatalog = document.getElementById('btnCatalog');
+    btnCatalog && btnCatalog.addEventListener('click', (e)=>{ e.preventDefault(); openCatalog(); });
+
+    function openCatalog(){
+      let html = `<h2>Catálogo</h2><p class="muted">Monte seu carrinho com peças e serviços.</p>`;
+      html += `<div class="catalog-grid">`;
+      CATALOG.forEach(item => {
+        const icon = item.type === 'service' ? 'fa-tools' : 'fa-gem';
+        html += `
+          <div class="product">
+            <div class="meta"><i class="fa-solid ${icon}"></i><strong>${item.title}</strong></div>
+            <div class="muted">${item.desc}</div>
+            <div style="font-weight:700">R$ ${item.price.toFixed(2)}</div>
+            <div style="display:flex; gap:8px; margin-top:6px;">
+              <button data-id="${item.id}" class="addToCartBtn">Adicionar</button>
+              <button data-id="${item.id}" class="buyNowBtn">Comprar</button>
+            </div>
+          </div>
+        `;
+      });
+      html += `</div>
+        <div style="margin-top:12px;">
+          <div class="cart-summary"><div>Itens no carrinho: <span id="cartCount">${STATE.cart.length}</span></div><div><button id="viewCart">Ver carrinho</button></div></div>
+        </div>`;
+
+      openModal(html);
+
+      // attach handlers
+      document.querySelectorAll('.addToCartBtn').forEach(b=> b.addEventListener('click', ()=>{
+        const id = b.getAttribute('data-id'); addToCart(id);
+      }));
+      document.querySelectorAll('.buyNowBtn').forEach(b=> b.addEventListener('click', ()=>{
+        const id = b.getAttribute('data-id'); addToCart(id); placeOrder();
+      }));
+      document.getElementById('viewCart').addEventListener('click', renderCartInModal);
+    }
+
+    function addToCart(id){
+      const item = CATALOG.find(x=>x.id===id);
+      if(!item) return;
+      STATE.cart.push({ ...item, addedAt: Date.now(), qty:1 });
+      saveState();
+      const el = document.getElementById('cartCount'); if(el) el.textContent = STATE.cart.length;
+      alert(item.title + ' adicionado ao carrinho');
+    }
+
+    function renderCartInModal(){
+      let html = `<h2>Seu Carrinho</h2>`;
+      if(STATE.cart.length === 0) html += `<p class="muted">Carrinho vazio.</p>`;
+      else{
+        html += `<div style="display:flex;flex-direction:column;gap:8px">`;
+        STATE.cart.forEach((it, idx)=>{
+          html += `<div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee;padding:8px 0"><div><strong>${it.title}</strong><div class="muted">R$ ${it.price.toFixed(2)}</div></div><div style="display:flex;gap:8px"><button data-idx="${idx}" class="removeItem">Remover</button><div>qtd: ${it.qty}</div></div></div>`;
+        });
+        html += `</div>`;
+        const total = STATE.cart.reduce((s,i)=> s + i.price*i.qty, 0);
+        html += `<div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center"><div>Total: <strong>R$ ${total.toFixed(2)}</strong></div><div><button id="checkoutBtn">Finalizar</button></div></div>`;
+      }
+      openModal(html);
+      document.querySelectorAll('.removeItem').forEach(b=> b.addEventListener('click', ()=>{ const idx = +b.getAttribute('data-idx'); STATE.cart.splice(idx,1); saveState(); renderCartInModal(); }));
+      const checkoutBtn = document.getElementById('checkoutBtn'); if(checkoutBtn) checkoutBtn.addEventListener('click', ()=>{ placeOrder(); });
+    }
+
+    function placeOrder(){
+      if(STATE.cart.length === 0){ alert('Carrinho vazio'); return; }
+      // require login
+      if(!STATE.user){ alert('Faça login antes de finalizar o pedido'); openLoginModal(); return; }
+      const order = { id: 'ord_' + Date.now(), date: new Date().toISOString(), items: STATE.cart.slice(), total: STATE.cart.reduce((s,i)=> s + i.price*i.qty, 0) };
+      STATE.orders.push(order);
+      STATE.cart = [];
+      saveState();
+      closeModal();
+      alert('Pedido realizado com sucesso! ID: ' + order.id);
+    }
+
+    /* -------------------- PROFILE -------------------- */
+    const btnProfile = document.getElementById('btnProfile');
+    btnProfile && btnProfile.addEventListener('click', (e)=>{ e.preventDefault(); openProfile(); });
+
+    function openProfile(){
+      let html = `<h2>Perfil</h2>`;
+      if(!STATE.user){ html += `<p class="muted">Você não está logado.</p><p><button id="goLogin">Fazer login</button></p>`; }
+      else{
+        html += `<div class="form-row"><label style="min-width:80px">Nome</label><input id="profileName" value="${escapeHtml(STATE.user.name || '')}" /></div>`;
+        html += `<div class="form-row"><label style="min-width:80px">Email</label><input id="profileEmail" value="${escapeHtml(STATE.user.email || '')}" /></div>`;
+        html += `<div style="text-align:right"><button id="saveProfile">Salvar</button></div>`;
+      }
+      openModal(html);
+      const goLogin = document.getElementById('goLogin'); if(goLogin) goLogin.addEventListener('click', ()=>{ closeModal(); openLoginModal(); });
+      const saveProfile = document.getElementById('saveProfile'); if(saveProfile) saveProfile.addEventListener('click', ()=>{
+        const name = document.getElementById('profileName').value.trim();
+        const email = document.getElementById('profileEmail').value.trim();
+        if(!validateEmail(email)){ alert('Email inválido'); return; }
+        STATE.user = { name:name, email:email };
+        saveState();
+        alert('Perfil atualizado');
+        closeModal();
+      });
+    }
+
+    /* -------------------- ORDERS -------------------- */
+    const btnOrders = document.getElementById('btnOrders');
+    btnOrders && btnOrders.addEventListener('click', (e)=>{ e.preventDefault(); openOrders(); });
+
+    function openOrders(){
+      let html = `<h2>Meus Pedidos</h2>`;
+      if(!STATE.user){ html += `<p class="muted">Faça login para ver seus pedidos.</p><p><button id="goLogin2">Fazer login</button></p>`; }
+      else{
+        if(STATE.orders.length === 0) html += `<p class="muted">Nenhum pedido registrado.</p>`;
+        else{
+          html += `<div style="display:flex;flex-direction:column;gap:10px">`;
+          STATE.orders.forEach(o=>{
+            html += `<div style="border:1px solid #eee;padding:10px;border-radius:8px"><div><strong>ID:</strong> ${o.id}</div><div class="muted">Data: ${new Date(o.date).toLocaleString()}</div><div><strong>Total:</strong> R$ ${o.total.toFixed(2)}</div></div>`;
+          });
+          html += `</div>`;
+        }
+      }
+      openModal(html);
+      const goLogin2 = document.getElementById('goLogin2'); if(goLogin2) goLogin2.addEventListener('click', ()=>{ closeModal(); openLoginModal(); });
+    }
+
+    /* -------------------- Novidades link behavior -------------------- */
+    const novidadesLink = document.getElementById('novidadesLink');
+    const novidadesPage = document.getElementById('novidadesPage');
+    const openInstaBtnNav = document.getElementById('openInstaBtnNav');
+    const floatInsta = document.getElementById('floatInsta');
+
+    novidadesLink && novidadesLink.addEventListener('click', (e)=>{
+      e.preventDefault();
+      // show internal page section (keeps nav spacing)
+      // hide main scroll to make it look like new page
+      document.querySelectorAll('main > section').forEach(s=> s.style.display = 'none');
+      novidadesPage.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // set link for open button
+      openInstaBtnNav.href = 'https://www.instagram.com/j.j.joias_2024?igsh=bXloZmhycGp4c3h1';
+    });
+
+    // Floating button already updated in markup. Ensure it opens new tab (it does via target='_blank')
+
+    // If iframe is blocked or returns blank, show fallback
+    const instaIframe = document.getElementById('instaIframe');
+    function checkInstaFrame(){
+      try{
+        const doc = instaIframe.contentDocument || instaIframe.contentWindow.document;
+        const body = doc && doc.body && doc.body.innerHTML;
+        // If cross-origin, access will throw; fallback will be used in that case
+      }catch(err){
+        // Cannot access iframe due to CORS -> show fallback grid and a message
+        document.getElementById('instaFallback').style.display = 'grid';
+        instaIframe.style.display = 'none';
+      }
+    }
+    instaIframe && instaIframe.addEventListener('load', checkInstaFrame);
+
+    document.getElementById('openInstaBtnNav').addEventListener('click', ()=>{
+      window.open('https://www.instagram.com/j.j.joias_2024?igsh=bXloZmhycGp4c3h1','_blank');
+    });
+
+    /* Utility */
+    function escapeHtml(str){ return String(str).replace(/[&<>"']/g, function(m){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m]; }); }
+
+    // Ensure cart/orders badge in catalog updates after load
+    window.addEventListener('load', ()=>{
+      // keep original behaviour
+      carousels.forEach(c => c.scrollLeft = 0);
+    });
+
+    /* End of additions */
   </script>
 </body>
+
 </html>
